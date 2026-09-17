@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Turf Showcase"
+description = "A cinematic turf booking showcase with scroll-driven motion, immersive venue storytelling, responsive interactions, and a working demo booking flow."
+version = "1.0.0"
+id = "artifacts/turf-showcase"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19016
+
+[services.development]
+run = "pnpm --filter @workspace/turf-showcase run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/turf-showcase", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/turf-showcase/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19016"
+BASE_PATH = "/"
